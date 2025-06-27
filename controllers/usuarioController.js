@@ -24,7 +24,45 @@ const criarUsuario = (req, res) => {
     res.status(201).json(novoUsuario);
 };
 
+
+const listarUsuarios = (req, res) => {
+    res.json(usuarios); // retorna a array inteira
+};
+
+const atualizarUsuario = (req, res) => {
+    const { id } = req.params; //ID vindo da URL
+
+    const { nome, email } = req.body;
+
+    const usuario = usuarios.find((u) => u.id === parseInt(id));
+
+    if (!usuario) {
+        return res.status(404).json({ erro: 'Usuario não encontrado.'});
+    }
+
+   if (nome) usuario.nome = nome;
+   if (email) usuario.email = email;
+
+   res.json(usuario);
+};
+
+const deletarUsuario = (req, res) => {
+    const { id } = req.params;
+    const indice = usuarios.findIndex((u) => u.id === parseInt(id));
+
+    if (indice === -1) {
+        return res.status(404).json({ erro: 'Usuario não encontrado.' });
+    }
+
+    usuarios.splice(indice, 1);
+
+    res.json({ mensagem: 'Usuario removido com sucesso.' });
+};
+
 module.exports = {
     saudacao,
     criarUsuario,
+    listarUsuarios,
+    atualizarUsuario,
+    deletarUsuario
 };
