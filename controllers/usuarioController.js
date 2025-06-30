@@ -2,7 +2,7 @@ const usuarios = require('../data/usuarios');
 //importa o array de usuarios
 
 const saudacao = (req, res) => {
-    res.json({ mensagem: 'Bem-Vindo à API de Exemplo' });
+    res.json('Bem-Vindo à API de Exemplo' );
 };
 
 const criarUsuario = (req, res) => {
@@ -21,7 +21,8 @@ const criarUsuario = (req, res) => {
 
     usuarios.push(novoUsuario);
 
-    res.status(201).json(novoUsuario);
+    res.status(201).json({ mensagem: 'Usuario criado com sucesso', usuario: novoUsuario
+});
 };
 
 
